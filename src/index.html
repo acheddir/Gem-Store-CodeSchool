@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="store">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gem Store App</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <!--[if IE]>
+            <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+        <![endif]-->
+
+    <!-- Bootstrap CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!-- Site CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body ng-controller="StoreController as store">
+
+    <div>
+
+        <header>
+            <h1 class="text-center">Flatlander Crafted Gems</h1>
+            <h2 class="text-center">– an Angular store –</h2>
+        </header>
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="product in store.products" ng-hide="product.soldOut">
+
+                <h3>
+                    {{ product.name }} <em class="pull-right">{{ product.price | currency }}</em>
+                </h3>
+
+                <div class="gallery" ng-controller="GalleryController as gallery" ng-show="product.images.length">
+                    <img class="img img-circle img-thumbnail center-block" ng-src="{{product.images[gallery.current]}}" />
+                    <ul class="clearfix">
+                        <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
+                            <img ng-src="{{image}}" ng-click="gallery.setCurrent(product.images.indexOf(image))" />
+                        </li>
+                    </ul>
+                </div>
+
+                <section ng-controller="TabController as tab">
+                    <ul class="nav nav-pills">
+                        <li ng-class="{ active:tab.isSet(1) }">
+                            <a href ng-click="tab.setTab(1)">Description</a></li>
+                        <li ng-class="{ active:tab.isSet(2) }">
+                            <a href ng-click="tab.setTab(2)">Specifications</a></li>
+                        <li ng-class="{ active:tab.isSet(3) }">
+                            <a href ng-click="tab.setTab(3)">Reviews</a></li>
+                    </ul>
+                    <div class="panel" ng-show="tab.isSet(1)">
+                        <h4>Description</h4>
+                        <blockquote>{{product.description}}</blockquote>
+                    </div>
+                    <div class="panel" ng-show="tab.isSet(2)">
+                        <h4>Specifications</h4>
+                        <blockquote>Shine: {{product.shine}}</blockquote>
+                    </div>
+                    <div class="panel" ng-show="tab.isSet(3)">
+                        <!--  Product Reviews List -->
+                        <ul class="list-unstyled">
+                            <h4>Reviews</h4>
+                            <li ng-repeat="review in product.reviews">
+                                <blockquote>
+                                    <strong>{{review.stars}} Stars</strong>
+                                    {{review.body}}
+                                    <cite class="clearfix">—{{review.author}} on {{review.createdOn | date}}</cite>
+                                </blockquote>
+                            </li>
+                        </ul>
+
+                        <!--  Review Form -->
+                        <form novalidate name="reviewForm" ng-controller="ReviewController as reviewCtrl"
+                                                           ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)">
+                            <!--  Live Preview -->
+                            <blockquote>
+                                <strong>{{reviewCtrl.review.stars}} Stars</strong>
+                                {{reviewCtrl.review.body}}
+                                <cite class="clearfix">—{{review.author}} on {{review.createdOn | date}}</cite>
+                            </blockquote>
+
+                            <!--  Review Form -->
+                            <h4>Submit a Review</h4>
+                            <fieldset class="form-group">
+                                <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
+                                    <option value="">Rate the Product</option>
+                                </select>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review" required></textarea>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="jimmyDean@example.org" title="Email" required />
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" ng-disabled="!reviewForm.$valid" />
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </section>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="//cdn.jsdelivr.net/angularjs/1.5.5/angular.min.js"></script>
+    <script src="app/app.js"></script>
+    <!-- Site JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

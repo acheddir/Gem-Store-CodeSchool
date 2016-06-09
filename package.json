@@ -1,0 +1,13 @@
+{
+	"name": "localserver",
+    "description": "Local Lite Web Server",
+    "version": "1.0.0",
+	"devDependencies": {
+        "lite-server": "^2.2.0"
+    },
+    "license": "ISC",
+    "repository": { },
+    "scripts": {
+        "dev": "lite-server"
+    }
+}

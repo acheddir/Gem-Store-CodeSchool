@@ -1,0 +1,27 @@
+.small-image {
+    width: 3.5em;
+}
+
+ul.list-unstyled {
+    list-style-type: none;
+}
+
+.nav-pills>li>a {
+    color: #EC297B;
+    font-weight: bold;
+    border-radius: 0px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:active {
+    background-color: #EC297B;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.ng-invalid.ng-dirty {
+    border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+    border-color: #78FA89;
+}

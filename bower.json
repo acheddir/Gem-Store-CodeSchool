@@ -1,0 +1,13 @@
+{
+  "name": "localserver",
+  "description": "Local Lite Web Server",
+  "authors": [
+    "Abderrahman Cheddir"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "jquery": "^2.2.4",
+    "bootstrap": "^3.3.6"
+  }
+}
