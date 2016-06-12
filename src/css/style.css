@@ -2,6 +2,10 @@
     width: 3.5em;
 }
 
+.gallery-thumbnails {
+    margin-top: 10px;
+}
+
 ul.list-unstyled {
     list-style-type: none;
 }
